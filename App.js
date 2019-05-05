@@ -1,14 +1,33 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text, Button } from 'react-native';
+import { createBottomTabNavigator, createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import { Ionicons } from '@expo/vector-icons';
 import tabBarIcon from './components/utils/tabBarIcon';
+import FeedScreen from './screens/FeedScreen';
+import NewPostScreen from './screens/NewPostScreen';
+import SelectPhotoScreen from './screens/SelectPhotoScreen';
+// import Home from './navigators/home';
+import { screenGroupNames, screenNames } from './vars/enum';
 
-class SignIn extends React.Component {
+class DetailsScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Sign in here!</Text>
+        <Text>Details!</Text>
+      </View>
+    );
+  }
+}
+
+class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        {/* other code from before here */}
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
       </View>
     );
   }
@@ -18,75 +37,33 @@ class SettingsScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Sign up here</Text>
-      </View>
-    );
-  }
-}
-class IconWithBadge extends React.Component {
-  render() {
-    const { name, badgeCount, color, size } = this.props;
-    return (
-      <View style={{ width: 24, height: 24, margin: 5 }}>
-        <Ionicons name={name} size={size} color={color} />
-        {badgeCount > 0 && (
-          <View
-            style={{
-              // /If you're using react-native < 0.57 overflow outside of the parent
-              // will not work on Android, see https://git.io/fhLJ8
-              position: 'absolute',
-              right: -6,
-              top: -3,
-              backgroundColor: 'red',
-              borderRadius: 6,
-              width: 12,
-              height: 12,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
-              {badgeCount}
-            </Text>
-          </View>
-        )}
+        {/* other code from before here */}
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
       </View>
     );
   }
 }
 
+const HomeStack = createStackNavigator({
+  Home: HomeScreen,
+  Details: DetailsScreen,
+});
 
+const SettingsStack = createStackNavigator({
+  Settings: SettingsScreen,
+  Details: DetailsScreen,
+});
 
-const getTabBarIcon = (navigation, focused, tintColor) => {
-  const { routeName } = navigation.state;
-  let IconComponent = Ionicons;
-  let iconName;
- 
-};
-
-export default createAppContainer(
-  createBottomTabNavigator(
-    {
-      "Sign in": { screen: SignIn },
-      "Sign up": { screen: SettingsScreen },
-    },
-    {
-      defaultNavigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused, tintColor }) =>
-          getTabBarIcon(navigation, focused, tintColor),
-      }),
-      tabBarOptions: {
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-      },
-    }
-  )
-);
-
-
-
-
-
-
-
-
+export default createAppContainer(createBottomTabNavigator(
+  {
+    Home: HomeStack,
+    Settings: SettingsStack,
+  },
+  {
+    /* Other configuration remains unchanged */
+  }
+));
 
