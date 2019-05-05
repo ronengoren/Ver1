@@ -1,16 +1,17 @@
 // ./Fire.js
 import uuid from 'uuid';
 
-import getUserInfo from './utils/getUserInfo';
-import shrinkImageAsync from './utils/shrinkImageAsync';
-import uploadPhoto from './utils/uploadPhoto';
+import getUserInfo from './components/utils/getUserInfo';
+import shrinkImageAsync from './components/utils/shrinkImageAsync';
+import uploadPhoto from './components/utils/uploadPhoto';
 
 const firebase = require('firebase');
 // Required for side-effects
 require('firebase/firestore');
 
-const collectionName = 'snack-SJucFknGX';
-
+const collectionName = 'WlOe8oK6rmiVKVi0smL6';
+// const timestamp = snapshot.get('created_at');
+// const date = timestamp.toDate();
 class Fire {
   constructor() {
     firebase.initializeApp({
@@ -22,7 +23,7 @@ class Fire {
       messagingSenderId: '259299448191',
     });
     // Some nonsense...
-    firebase.firestore().settings({ timestampsInSnapshots: true });
+    // firebase.firestore().settings({ timestampsInSnapshots: true });
 
     // Listen for auth
     firebase.auth().onAuthStateChanged(async user => {
